@@ -1,7 +1,9 @@
 import Navigation from "./(components)/Navigation";
+import TicketCard from "./(components)/TicketCard";
+import DeleteBlock from "./(components)/DeleteBlock";
 import "./globals.css";
-import { Inter } from "next/font/google";
 
+import { Inter } from "next/font/google";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
