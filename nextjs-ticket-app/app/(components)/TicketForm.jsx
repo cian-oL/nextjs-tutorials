@@ -83,7 +83,7 @@ const TicketForm = () => {
           <option value="software-problem">Software Problem</option>
           <option value="project">Project</option>
         </select>
-        <label htmlFor="priority">Prioirity </label>
+        <label htmlFor="priority">Priority </label>
         <div>
           <input
             type="radio"
