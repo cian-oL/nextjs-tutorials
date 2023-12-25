@@ -3,8 +3,11 @@
 import { useRouter } from "next/navigation";
 import React, { useReducer, useState } from "react";
 
-const TicketForm = () => {
+const TicketForm = ({ ticketData }) => {
+  console.log(ticketData);
+
   const router = useRouter();
+  const EDITMODE = ticketData._id === "new" ? false : true;
 
   const startingTicketData = {
     title: "",
@@ -14,6 +17,16 @@ const TicketForm = () => {
     progress: 0,
     status: "Not started",
   };
+
+  if (EDITMODE) {
+    startingTicketData["title"] = ticketData.title;
+    startingTicketData["description"] = ticketData.description;
+    startingTicketData["category"] = ticketData.category;
+    startingTicketData["priority"] = ticketData.priority;
+    startingTicketData["progress"] = ticketData.progress;
+    startingTicketData["status"] = ticketData.status;
+  }
+
   const [formData, setFormData] = useState(startingTicketData);
 
   const handleChange = (e) => {
