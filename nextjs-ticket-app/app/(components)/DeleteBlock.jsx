@@ -18,7 +18,7 @@ const DeleteBlock = ({ id }) => {
         router.refresh();
       }
     } catch (error) {
-      console.log("Failed to get tickets", error);
+      console.log("Failed to delete ticket", error);
     }
   };
 
