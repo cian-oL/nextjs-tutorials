@@ -1,5 +1,4 @@
 import TicketForm from "@/app/(components)/TicketForm";
-import Ticket from "@/app/(models)/Ticket";
 
 const getTicketById = async (id) => {
   try {
