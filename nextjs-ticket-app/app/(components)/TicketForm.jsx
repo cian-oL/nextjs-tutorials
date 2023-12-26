@@ -4,8 +4,6 @@ import { useRouter } from "next/navigation";
 import React, { useReducer, useState } from "react";
 
 const TicketForm = ({ ticketData }) => {
-  console.log(ticketData);
-
   const router = useRouter();
   const EDITMODE = ticketData._id === "new" ? false : true;
 
@@ -42,17 +40,27 @@ const TicketForm = ({ ticketData }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await fetch("/api/Tickets", {
-      method: "POST",
-      body: JSON.stringify({ formData }),
-      "content-type": "application/json",
-    });
+    if (EDITMODE) {
+      const response = await fetch(`/api/Tickets/${ticketData._id}`, {
+        method: "PUT",
+        body: JSON.stringify({ formData }),
+        "content-type": "application/json",
+      });
 
-    if (!response.ok) {
-      throw new Error("Failed to create ticket.");
+      if (!response.ok) {
+        throw new Error("Failed to update ticket.");
+      }
+    } else {
+      const response = await fetch("/api/Tickets", {
+        method: "POST",
+        body: JSON.stringify({ formData }),
+        "content-type": "application/json",
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to create ticket.");
+      }
     }
-
-    console.log("Ticket submitted.");
 
     // Return to dashboard on successful ticket submission or refresh on error
     router.refresh();
@@ -66,7 +74,7 @@ const TicketForm = ({ ticketData }) => {
         method="post"
         onSubmit={handleSubmit}
       >
-        <h3>Create Ticket</h3>
+        <h3>{EDITMODE ? "Update Ticket" : "Create Ticket"}</h3>
         <label htmlFor="title">Title </label>
         <input
           type="text"
@@ -165,7 +173,11 @@ const TicketForm = ({ ticketData }) => {
           <option value="incomplete">Incomplete</option>
           <option value="complete">Complete</option>
         </select>
-        <input type="submit" value="Create Ticket" className="btn max-w-xs" />
+        <input
+          type="submit"
+          value={EDITMODE ? "Update Ticket" : "Create Ticket"}
+          className="btn max-w-xs"
+        />
       </form>
     </div>
   );
